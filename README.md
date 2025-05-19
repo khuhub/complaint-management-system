@@ -56,8 +56,6 @@ A full-stack web application for managing and tracking user complaints, built wi
    npm run dev
    ```
 
-   Backend will run at: **http://localhost:3001**
-
 ### Frontend Setup
 
 1. Navigate to the client folder:
@@ -80,13 +78,12 @@ A full-stack web application for managing and tracking user complaints, built wi
    npm run dev
    ```
 
-   Frontend will run at: **http://localhost:5173**
-
 ## Assumptions & Tradeoffs
 
 ### Assumptions
 
-- Single admin user system (could be expanded for multiple roles)  
+- Single admin user system (could be expanded for multiple roles)
+- **Current admin login password: admin123**
 - All complaints are stored in a single table  
 
 ### Tradeoffs
