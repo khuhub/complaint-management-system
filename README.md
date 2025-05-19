@@ -28,7 +28,7 @@ A full-stack web application for managing and tracking user complaints, built wi
 
 ### Prerequisites
 
-- Node.js (v14 or higher)  
+- Node.js
 - npm or yarn  
 - Supabase account and project  
 
