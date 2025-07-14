@@ -23,7 +23,8 @@ export default function ComplaintForm() {
     try {
       console.log('Submitting form data:', form);
       
-      const res = await fetch('/api/complaints', {
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiUrl}/api/complaints`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json'

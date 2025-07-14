@@ -13,9 +13,11 @@ export default function ComplaintTable() {
   const [complaints, setComplaints] = useState<Complaint[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL || '';
+
   const fetchComplaints = async () => {
     try {
-      const res = await fetch('/api/complaints');
+      const res = await fetch(`${apiUrl}/api/complaints`);
       if (!res.ok) {
         const errorData = await res.json().catch(() => null);
         throw new Error(errorData?.error || 'Failed to fetch complaints');
@@ -30,7 +32,7 @@ export default function ComplaintTable() {
 
   const toggleStatus = async (id: number) => {
     try {
-      const res = await fetch(`/api/complaints/${id}`, { method: 'PATCH' });
+      const res = await fetch(`${apiUrl}/api/complaints/${id}`, { method: 'PATCH' });
       if (!res.ok) {
         const errorData = await res.json().catch(() => null);
         throw new Error(errorData?.error || 'Failed to update status');
@@ -48,7 +50,7 @@ export default function ComplaintTable() {
     }
 
     try {
-      const res = await fetch(`/api/complaints/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${apiUrl}/api/complaints/${id}`, { method: 'DELETE' });
       if (!res.ok) {
         const errorData = await res.json().catch(() => null);
         throw new Error(errorData?.error || 'Failed to delete complaint');
