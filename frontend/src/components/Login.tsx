@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Layout from './Layout';
 
 export default function Login() {
   const [password, setPassword] = useState('');
