@@ -2,12 +2,19 @@
 
 A full-stack web application for managing and tracking user complaints, built with **React (Vite)** on the frontend and **Express.js with Supabase** on the backend.
 
+## Demo Admin Credentials
+
+To test admin features, use:
+- **Email:** admin123@example.com
+- **Password:** admin@123
+
 ## Features
 
--  Public complaint submission form  
--  Admin dashboard for managing complaints
--  Secure authentication system  
--  Real-time data updates  
+- Public complaint submission form  
+- Admin dashboard for managing complaints
+- Secure authentication with Supabase Auth (email/password)
+- Backend API protected with JWT and admin role checks
+- Real-time data updates  
 
 ## Tech Stack
 
@@ -17,57 +24,58 @@ A full-stack web application for managing and tracking user complaints, built wi
 - Vite (build tool)  
 - TailwindCSS (styling)  
 - React Router (navigation)  
+- Supabase JS Client (auth & API)
 
 ### Backend
 
 - Express.js (API server)  
 - Supabase (PostgreSQL + Auth)  
+- JWT verification for protected routes  
 - CORS enabled for cross-origin requests  
 
+## Setup & Usage
 
-## Assumptions & Tradeoffs
+### 1. Environment Variables
 
-### Assumptions
+**Frontend (.env):**
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_API_URL= # (leave blank for local dev, set to backend URL in production)
+```
 
-- Single admin user system (could be expanded for multiple roles)
-- **Current admin login password: admin123**
-- All complaints are stored in a single table  
+**Backend (.env):**
+```
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+```
 
-### Tradeoffs
+### 2. Running Locally
 
-**Simplicity vs. Features**  
-- Focused on core functionality over additional features  
-- Basic authentication for quick development  
-- Simple data model for rapid prototyping  
+**Backend:**
+```sh
+cd backend
+npm install
+npm run dev
+```
 
-**Development Speed vs. Scalability**  
-- Used Supabase for quick database setup  
-- CORS configured with wildcard for development ease  
-- Basic error handling implemented  
+**Frontend:**
+```sh
+cd frontend
+npm install
+npm run dev
+```
 
-**User Experience vs. Development Time**  
-- Minimal UI/UX features  
-- Basic form validation  
-- Limited filtering and sorting options  
+### 3. Deployment
+- Deploy frontend to Vercel (set env vars in dashboard)
+- Deploy backend to Render (set env vars in dashboard)
+- Set `VITE_API_URL` in Vercel to your Render backend URL
 
-## Future Improvements
+## Authentication & Admin Access
+
+- Users log in with email/password via Supabase Auth
+- Only users with `role: 'admin'` in the `profiles` table can access the admin dashboard and protected API routes
+- JWT tokens are used to secure backend admin endpoints
+- Public can submit complaints without logging in
 
 
-### Feature Additions
-
-- Email notifications for new complaints  
-- Advanced filtering and search  
-- Complaint status tracking  
-- Multiple admin roles and permissions  
-
-### Technical Improvements
-
-- Add comprehensive test coverage  
-- Implement proper error boundary components  
-- Add request caching  
-
-### UI/UX Improvements
-
-- Add mobile-optimized views  
-- Enhance accessibility features  
-- Style better user-interface
