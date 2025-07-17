@@ -1,13 +1,14 @@
 import type { ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 
 export default function Layout({ children, hideAdminLogin, fullWidth }: { children: ReactNode, hideAdminLogin?: boolean, fullWidth?: boolean }) {
   const location = useLocation();
   const navigate = useNavigate();
   const isAdmin = location.pathname === '/admin';
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate('/login');
   };
 

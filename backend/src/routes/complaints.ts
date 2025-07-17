@@ -1,5 +1,6 @@
-import express, {Request, Response } from 'express';
+import express, {Request, Response} from 'express';
 import { supabase } from '../supabaseClient';
+import { verifyAdminJWT } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ interface ComplaintInput {
   complaint: string;
 }
 
-// POST / -> Submit a new complaint
+// POST / -> Submit a new complaint (public)
 router.post(
   '/', 
   (async (req: Request<{}, {}, ComplaintInput>, res: Response): Promise<void> => {
@@ -39,8 +40,8 @@ router.post(
   })
 );
 
-// GET / -> Get all complaints
-router.get('/', async (_req: Request, res: Response): Promise<void> => {
+// GET / -> Get all complaints (admin only)
+router.get('/', verifyAdminJWT, async (_req: Request, res: Response): Promise<void> => {
   try {
     const { data, error } = await supabase
       .from('complaints')
@@ -59,8 +60,8 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
   }
 });
 
-// PATCH /:id -> Toggle status
-router.patch('/:id', async (req: Request<{ id: string }>, res: Response): Promise<void> => {
+// PATCH /:id -> Toggle status (admin only)
+router.patch('/:id', verifyAdminJWT, async (req: Request<{ id: string }>, res: Response): Promise<void> => {
   const { id } = req.params;
 
   try {
@@ -96,8 +97,8 @@ router.patch('/:id', async (req: Request<{ id: string }>, res: Response): Promis
   }
 });
 
-// DELETE /complaints/:id -> Delete a complaint
-router.delete('/:id', async (req: Request<{ id: string }>, res: Response): Promise<void> => {
+// DELETE /complaints/:id -> Delete a complaint (admin only)
+router.delete('/:id', verifyAdminJWT, async (req: Request<{ id: string }>, res: Response): Promise<void> => {
   const { id } = req.params;
 
   const { error } = await supabase
