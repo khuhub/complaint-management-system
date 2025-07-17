@@ -41,7 +41,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      async (event) => {
         if (event === 'SIGNED_OUT') {
           navigate('/login');
         }
